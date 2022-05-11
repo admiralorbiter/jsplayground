@@ -1,0 +1,18 @@
+<!-- <link rel="stylesheet" href="style.css">
+<script type="module">
+    import {Level, simpleLevelPlan} from "./level.js";
+    import {DOMDisplay} from "./helper.js";
+    import {State} from "./state.js";
+    let simpleLevel = new Level(simpleLevelPlan);
+    console.log(simpleLevel);
+    let display = new DOMDisplay(document.body, simpleLevel);
+    display.syncState(State.start(simpleLevel));
+</script> -->
+<link rel="stylesheet" href="style.css">
+<body>
+<script type="module">
+    import {runGame, DOMDisplay} from "./helper.js";
+    import {GAME_LEVELS} from "./levels.js";
+    runGame(GAME_LEVELS, DOMDisplay);
+</script>
+</body>
