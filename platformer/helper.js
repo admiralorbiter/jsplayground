@@ -137,4 +137,4 @@ async function runGame(plans, Display) {
     }
     console.log("You've won!");
 }
-export{elt, DOMDisplay, drawGrid, drawActor, runAnimation, runGame};
+export{elt, DOMDisplay, drawGrid, drawActor, runAnimation, runGame, scale};
