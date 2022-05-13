@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jon Lane</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bulma-tooltip.css">
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+    </script>
+    <script> 
+        $(function(){
+        $("#navbar").load("navbar.html"); 
+        });
+    </script> 
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <header class="title">
+        Hello World... I'm Jon Lane
+        <!-- <div id="navbar"></div> -->
+        <!-- <nav class = "subtitle">
+            <a href="#">Home</a> | 
+            <a href="#about">About</a> | 
+            <a href="resume.html">Resume</a> | 
+            <div class="dropdown"><a href="work.html">Work</a></div> | 
+            <a href="play.html">Play</a>
+        </nav> -->
+        <nav class="navbar is-size-6" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="index.html">
+                        Home
+                    </a>
+                    <a class="navbar-item" href="#about">
+                        About
+                    </a>
+                    <a class="navbar-item" href="professional/resume.html">
+                        Resume
+                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Work
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="education/education.html">
+                                Educational Work
+                            </a>
+                            <a class="navbar-item" href="programming/software.html"> 
+                                Software Dev
+                            </a>
+                            <a class="navbar-item" href="data/data.html">
+                                Data Analytics
+                            </a>
+                        </div>
+                    </div>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Play
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="play/esports.html">
+                                eSports
+                            </a>
+                            <a class="navbar-item" href="play/gamedev.html">
+                                Game Dev
+                            </a>
+                            <a class="navbar-item" href="play/arduino.html">
+                                Circuits
+                            </a>
+                            <a class="navbar-item" href="play/personal.html">
+                                Personal and More!
+                            </a>
+                        </div>
+                </div>
+            </div>
+        </nav>
+        <p class="subtitle">
+          I'm a software developer and educator. I used to write unmaintainable code....I still do. But I used to, too.
+        </p>
+      </header>
+    </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class = "title is-size-4">
+                <a href="recentevents.html">
+                    What I've Been Up To
+                </a>
+            </h1>
+            <div class="columns">
+                <div class="column card">
+                    <img class="card-image" src="meatball.jpg">
+                    <div class = "card-content">
+                        meatball
+                    </div>
+                    <div class="card-footer is-size-7">
+                        Personal
+                    </div>
+                </div>
+                <div class="column card">
+                    <img class="card-image" src="desk.jpg">
+                    <div class = "card-content">
+                        My Desk
+                    </div>
+                    <div class="card-footer is-size-7">
+                        Hobby
+                    </div>
+                </div>
+                <div class="column card">
+                    <img class="card-image" src="students.jpg">
+                    <div class = "card-content">
+                        The students and I go to FishTech.
+                    </div>
+                    <div class="card-footer is-size-7">
+                        Work
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="fridge" class="section">
+        <div class="container">
+            <h1 class="title is-size-4">My Fridge</h1>
+            <h2 class="subtitle is-size-5">Where I Show Off</h2>
+            <div id="modal-1" class="modal">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title"> Modal title </p>
+                        <button class="delete" aria-label="close"></button>
+                    </header>
+                    <section class="modal-card-body">
+                        Content
+                    </section>
+                </div>
+                <button class="modal-close is-large" aria-label="close"></button>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <button class="js-modal-trigger button is-info is-light" data-target="modal-1">
+                        PREP-KC Math Relays Video '22
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="js-modal-trigger button is-info is-light" data-target="modal-2">
+                        PREP-KC DataViz Website
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="js-modal-trigger button is-info is-light" data-target="modal-2">
+                        D//JON
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="section">
+        <div class="container">
+            <h1 class="title is-size-4">A Taste of Jon Lane</h1>
+            <h2 class="subtitle is-size-5">
+                <a href="resume.html">Resume</a> | <a href="educator.html">Educator</a> | <a href="software.html">Software</a> | <a href="data.html">Data Analytics</a> 
+            </h2>
+            <div class="media">
+                <figure class="media-left">
+                    <p class="image is-128x128">
+                        <img src="geese.jpg">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <p>
+                        My bio goes here.
+                    </p>
+                    <p>
+                        Get to know me better professionally through one of the links above or get to know my more personally with the 
+                        hobby projects below.
+                    </p>
+                </div>
+            </div>
+            <h2 class="subtitle is-size-4 has-text-centered">
+                <a href="life.html">Personal Life</a> | <a href="gamedev.html">GameDev</a> | <a href="esports.html">eSports</a>
+            </h2>
+            <h2 class="subtitle is-size-4 has-text-centered">
+                <a href="recentevents.html">What I Have Been Up To</a>
+            </h2>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-size-4">Random Thoughts</h1>
+            <ul>
+                <li class="has-tooltip-left" data-tooltip="Hear from my perspective">Thoughts on Dealing with Covid and Disabilities - 1/13/22</li>
+                <li>What the future holds - 5/13/22</li>
+            </ul>
+        </div>
+    </section>
+    <footer class="section">
+        <div class="container">
+            Made by Jon Lane
+        </div>
+    </footer>
+    <script src="modal.js"></script>
+  </body>
+</html>
