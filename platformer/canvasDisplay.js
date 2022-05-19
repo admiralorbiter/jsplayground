@@ -114,7 +114,7 @@ CanvasDisplay.prototype.drawPlayer = function(player, x, y, width, height) {
     if(this.flipPlayer) {
         flipHorizontally(this.cx, x + width/2);
     }
-    let tileX = tile * scale;
+    let tileX = tile * width;
     this.cx.drawImage(playerSprites, tileX, 0, scale, scale, x, y, width, height);
     this.cx.restore();
 };
