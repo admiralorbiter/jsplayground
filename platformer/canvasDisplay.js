@@ -78,8 +78,11 @@ CanvasDisplay.prototype.drawBackground = function(level) {
     let yStart = Math.floor(top);
     let yEnd = Math.ceil(top + height);
 
+    // console.log(this.viewport);
+
     for(let y = yStart; y < yEnd; y++) {
         for(let x = xStart; x < xEnd; x++) {
+            // console.log(x, y);
             let tile = level.rows[y][x];
             if(tile == "empty") continue;
             let screenX = (x - left) * scale;

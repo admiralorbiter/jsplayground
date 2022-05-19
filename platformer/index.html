@@ -10,11 +10,31 @@
 </script> -->
 <link rel="stylesheet" href="style.css">
 <body>
+    <h1 id="level">Level 1</h1>
+    <select id="level-select">
+        <option value="1">Level 1</option>
+        <option value="2">Level 2</option>
+        <option value="3">Level 3</option>
+    </select>
+    <br />
 <script type="module">
     import {runGame, DOMDisplay} from "./helper.js";
     import {GAME_LEVELS} from "./levels.js";
     import {CanvasDisplay} from "./canvasDisplay.js";
+    import config from "./settings.config.js";
+    import {State} from "./state.js";
     // runGame(GAME_LEVELS, DOMDisplay);
-    runGame(GAME_LEVELS, CanvasDisplay);
+    document.getElementById("level").innerHTML = "Level "+config.level.toString();
+    var game = runGame(GAME_LEVELS, CanvasDisplay);
+    // function onchange(e){
+    //     // console.log(e.target.value);
+    //     if(e.currentTarget.value != config.level){
+    //         config.level = e.currentTarget.value;
+    //         document.getElementById("level").innerHTML = "Level "+config.level.toString();
+    //         // game = runGame(GAME_LEVELS, display);
+    //         // CanvasDisplay.syncState(State.start(GAME_LEVELS[config.level]));
+    //     }
+    // }
+    // document.getElementById("level-select").addEventListener("change", onchange);
 </script>
 </body>

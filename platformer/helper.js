@@ -1,5 +1,11 @@
 import {Level} from "./level.js";
 import {State} from "./state.js";
+import {CanvasDisplay} from "./canvasDisplay.js";
+import config from "./settings.config.js";
+import {GAME_LEVELS} from "./levels.js";
+let display;
+let state;
+let level_select;
 
 function elt(name, attrs, ...children) {
     let dom = document.createElement(name);
@@ -110,13 +116,15 @@ function runAnimation(frameFunc) {
 }
 
 function runLevel(level, Display) {
-    let display = new Display(document.body, level);
-    let state = State.start(level);
+    display = new Display(document.body, level);
+    state = State.start(level);
+    console.log(state);
     let ending = 1;
     return new Promise(resolve => {
         runAnimation(time => {
                     state = state.update(time, arrowKeys);
                     display.syncState(state);
+                    
                     if (state.status == "playing") {
                         return true;
                     } else if (ending > 0) {
@@ -130,11 +138,40 @@ function runLevel(level, Display) {
         });
     });
 }
-async function runGame(plans, Display) {
-    for (let level = 0; level < plans.length;) {
-        let status = await runLevel(new Level(plans[level]), Display);
+async function runGame(plans, display, level) {
+    if(level == undefined){
+        for (let level = 0; level < plans.length;) {
+            let status = await runLevel(new Level(plans[level]), display);
+            if (status == "won") level++;
+            if (status == "new_level"){
+                level = level_select;
+                console.log("new level", level);
+                status = await runLevel(new Level(plans[level]), display);
+            }
+        }
+        console.log("You've won!");
+    }else{
+        let status = await runLevel(new Level(plans[level]), display);
         if (status == "won") level++;
+        if (status == "new_level") level = status.level_select;
     }
-    console.log("You've won!");
 }
+
+function onchange(e){
+    // console.log(e.target.value);
+    if(e.currentTarget.value != config.level){
+        config.level = e.currentTarget.value;
+        document.getElementById("level").innerHTML = "Level "+config.level.toString();
+        // game = runGame(GAME_LEVELS, display);
+        // CanvasDisplay.syncState(State.start(GAME_LEVELS[config.level]));
+        console.log("level changed to ", config.level);
+        // display.syncState(State.start(GAME_LEVELS[config.level]));
+        // display.canvas.remove();
+        state.status = "new_level";
+        level_select = config.level-1;
+        // runGame(GAME_LEVELS, CanvasDisplay, config.level-1);
+    }
+}
+document.getElementById("level-select").addEventListener("change", onchange);
+
 export{elt, DOMDisplay, drawGrid, drawActor, runAnimation, runGame, scale};

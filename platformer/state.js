@@ -3,6 +3,7 @@ class State {
         this.level = level;
         this.actors = actors;
         this.status = status;
+        this.level_select;
     }
 
     static start(level){
