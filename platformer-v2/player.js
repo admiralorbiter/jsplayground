@@ -1,4 +1,5 @@
 import Vec from "./helper/vec.js";
+import {playerXSpeed, gravity, jumpSpeed} from "./settings.config.js";
 
 class Player{
     constructor(pos, speed){
@@ -12,6 +13,8 @@ class Player{
         return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0));
     }
 }
+
+Player.prototype.size = new Vec(0.8, 1.5);
 
 Player.prototype.update = function(time, state, keys){
     let xSpeed = 0;

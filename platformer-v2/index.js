@@ -4,6 +4,9 @@ import {GAME_LEVELS} from "./levels.js";
 import {CanvasDisplay} from "./canvasDisplay.js";
 import {Level} from "./level.js";
 
+let state;
+let level_select;
+
 /*
     Main Function used to initialize and start the game
 */
@@ -17,13 +20,14 @@ function main() {
     Setup for the game in case the level is selected.
     Note that level_select is the last variable and can be left out when calling runGame
 */
-function setup(plans, display, level_select){
-    if(level == undefined){
+async function setup(plans, display, level_select){
+    if(level_select == undefined){
         for(let level=0; level<plans.length;){
-            runGame(plans, display, level);
+           await runGame(plans, display, level);
+           console.log("level", level);
         }
     }else{
-        runGame(plans, display, level_select);
+       await runGame(plans, display, level_select);
     }
 }
 
@@ -32,17 +36,19 @@ function setup(plans, display, level_select){
 */
 async function runGame(plans, display, level) {
     let status = await runLevel(new Level(plans[level]), display);
-    if (status == "won") level++;
+    console.log("status", status);
+    if (status == "won") runGame(plans, display, level+1);
     if (status == "new_level"){
-        level = level_select;
-        console.log("new level", level);
-        status = await runLevel(new Level(plans[level]), display);
+        console.log("new level", level_select);
+        status = await runLevel(new Level(plans[level_select]), display);
     }
+    console.log("You've won!");
+    console.log("level", level);
 }
 
 function runLevel(level, display){
     display = new display(document.body, level);
-    let state = State.start(level);
+    state = State.start(level);
     let ending = 1;
     return new Promise(resolve => {
         runAnimation(time => {
@@ -75,6 +81,15 @@ function runAnimation(frameFunc) {
     }
     requestAnimationFrame(frame);
 }
+
+function onchange(e){
+    if(e.currentTarget.value != e.level){
+        document.getElementById("level").innerHTML = "Level "+config.level.toString();
+        state.status = "new_level";
+        level_select = e.currentTarget.value;
+    }
+}
+document.getElementById("level-select").addEventListener("change", onchange);
 
 function trackKeys(keys) {
     let down = Object.create(null);

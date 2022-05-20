@@ -1,4 +1,6 @@
 import Vec from "../helper/vec.js";
+import State from "../state.js";
+import {wobbleSpeed, wobbleDist} from "../settings.config.js";
 
 /*
 Coin Class 
@@ -19,6 +21,15 @@ class Coin{
         let basePos = pos.plus(new Vec(0.2, 0.1));
         return new Coin(basePos, basePos, Math.random() * Math.PI * 2);
     }
+}
+
+Coin.prototype.size = new Vec(0.6, 0.6);
+
+Coin.prototype.collide = function(state){
+    let filtered = state.actors.filter(a => a !== this);
+    let status = state.status;
+    if(!filtered.some(a => a.type === "coin")) status = "won";
+    return new State(state.level, filtered, status);
 }
 
 Coin.prototype.update = function(time){
