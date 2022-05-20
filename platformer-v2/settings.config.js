@@ -1,5 +1,5 @@
 const config = {
-    level: 1,
+    level: 0,
     scale: 20,
 }
 
