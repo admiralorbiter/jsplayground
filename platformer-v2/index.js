@@ -13,6 +13,11 @@ let level_select;
 function main() {
     // Changes the Level Title to the current level
     document.getElementById("level").innerHTML = "Level "+config.level.toString();
+    for(let i=0; i<GAME_LEVELS.length; i++){
+        console.log("level", i);
+        $("#level-select").append($("<option></option>").attr("value", i).text("Level "+i.toString()));
+    }
+
     setup(GAME_LEVELS, CanvasDisplay);
 }
 
@@ -35,12 +40,18 @@ async function setup(plans, display, level_select){
     Runs the game.
 */
 async function runGame(plans, display, level) {
-    let status = await runLevel(new Level(plans[level]), display);
-    console.log("status", status);
-    if (status == "won") runGame(plans, display, level+1);
-    if (status == "new_level"){
-        console.log("new level", level_select);
-        status = await runLevel(new Level(plans[level_select]), display);
+    while(level < plans.length){
+        let status = await runLevel(new Level(plans[level]), display);
+        console.log("status", status);
+        if (status == "won"){
+            level=level+1;
+            // status=await runLevel(new Level(plans[level + 1]), display);
+        }
+        if (status == "new_level"){
+            console.log("new level", level_select);
+            // status = await runLevel(new Level(plans[level_select]), display);
+            level=level_select;
+        }
     }
     console.log("You've won!");
     console.log("level", level);
