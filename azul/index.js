@@ -15,33 +15,40 @@ let status = game.checkStatus();
 
 drawFactoriesAndPile(game);
 
-while(status == "playing"){
-    document.getElementById("title").innerHTML = "Status: " + status;
-    drawFactoriesAndPile(game);
-    if(turn == 0){
-        //player turn
-        player.turn(game.factories, game.pile);
-        drawActor("player", player);
-        
-    }else if(turn == 1){
-        //opp turn
-        opp.turn(game.factories, game.pile);
-        drawActor("opponent", opp);
+while(status != "game_over"){
+    while(status == "playing"){
+        document.getElementById("title").innerHTML = "Status: " + status;
+        drawFactoriesAndPile(game);
+        if(turn == 0){
+            //player turn
+            player.turn(game.factories, game.pile);
+            drawActor("player", player);
+            
+        }else if(turn == 1){
+            //opp turn
+            opp.turn(game.factories, game.pile);
+            drawActor("opponent", opp);
+        }
+        turn = (turn + 1) % 2;
+        // console.log(game.factories);
+        status = game.checkStatus(actions);
+        actions++;
+        await delay();
+        // console.log(status+ " "+actions+ " "+turn);
     }
-    turn = (turn + 1) % 2;
-    // console.log(game.factories);
-    status = game.checkStatus(actions);
-    actions++;
+    document.getElementById("title").innerHTML = "Status: " + status;
+    actors.forEach(actor => {if(actor.checkEndCondition())status="game_over"});
+    actors.forEach(actor => actor.processTileBoard());
+    // actors.forEach(actor => console.log("A: "+actor.board));
+    drawActor("player", player);
+    drawActor("opponent", opp);
+    document.getElementById("title").innerHTML = "Status: " + status;
     await delay();
-    // console.log(status+ " "+actions+ " "+turn);
+    if(status != "game_over"){
+        game.drawFactories();
+        status = game.checkStatus();
+    }
 }
-document.getElementById("title").innerHTML = "Status: " + status;
-actors.forEach(actor => {if(actor.checkEndCondition())status="game_over"});
-actors.forEach(actor => actor.processTileBoard());
-// actors.forEach(actor => console.log("A: "+actor.board));
-drawActor("player", player);
-drawActor("opponent", opp);
-document.getElementById("title").innerHTML = "Status: " + status;
 // for(let i=0; i<this.players.length; i++){
 //     if(this.players[i].checkEndCondition()==true)status="game_over";
 // }
