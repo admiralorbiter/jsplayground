@@ -1,4 +1,5 @@
 import Vec from "./vec.js";
+import {getRandomInt, findCol} from "./util.js";
 
 class Player{
     constructor(){
@@ -6,6 +7,7 @@ class Player{
         this.tile_board = [[undefined],[undefined, undefined],[undefined, undefined, undefined],[undefined, undefined, undefined, undefined],[undefined, undefined, undefined, undefined, undefined]];
         this.score = 0;
         this.penaltyCount = 0;
+        this.first = 0;
     }
 }
 
@@ -16,42 +18,121 @@ Player.prototype.type = function(pos){
 Player.prototype.turn = function(factories, pile){
     //Randomly pick a tile from the tile storage
     let p = pile.length> 1 ? 1: 0; //factors in if there is anything in the pile. if there is adds that as an option
-    let rand = Math.floor(Math.random() * factories.length+p);
-    //Need to refactor this so it just calls one function
+    let rand = getRandomInt(0, factories.length+p);
+    // console.log(rand+" "+factories.length+" "+p);
+    //Branch if actor picks from pile
     if(rand == factories.length){
-        let rand_color = pile[rand][Math.floor(Math.random() * pile[rand].length)];
-        let tiles = pile[rand].filter(tile => tile == rand_color);
+        let rand_color = pile[Math.floor(Math.random() * pile.length)];
+        let tiles = pile.filter(tile => tile == rand_color);
+        // console.log("C: "+rand_color);
+        // console.log("P: "+pile);  
+
+        if(pile[0]==-1){
+            this.first = -1;
+            this.penaltyCount++;
+            pile.shift();
+        }
+
         //TODO: Need to make this truly random. start by checking for possible rows that can take all the tiles, pick random
         //If that can't be done, check for rows that can take some tiles, pick random
         //Finally if that cant' be done, add it to the penalties.
+        let found = false;
         for(let i=this.tile_board.length-1; i>=0; i--){
             if(this.tile_board[i][0] == undefined){
                 for(let j=0; j<tiles.length; j++){
                     this.tile_board[i][j] = tiles[j];
                 }
+                found = true;
                 break;
             }
+            if(found)break;
         }
 
+        if(!found){
+            this.penaltyCount++;
+            console.log("Penalty");
+        }
+
+        for(let i=0; i<tiles.length; i++){
+            let index = pile.indexOf(tiles[i]);
+            pile.splice(index, 1);
+        }
     }else{
         let rand_color = factories[rand][Math.floor(Math.random() * factories[rand].length)];
-        let tiles = factories[rand].filter(tile => tile == rand_color);
+        let taken_tiles = factories[rand].filter(tile => tile == rand_color);
+        let pile_tiles = factories[rand].filter(tile => tile != rand_color);
         //TODO: Need to make this truly random. start by checking for possible rows that can take all the tiles, pick random
         //If that can't be done, check for rows that can take some tiles, pick random
         //Finally if that cant' be done, add it to the penalties.
-        console.log(factories[rand]);
+        // console.log(factories[rand]);
+        let found = false;
         for(let i=this.tile_board.length-1; i>=0; i--){
             if(this.tile_board[i][0] == undefined){
-                for(let j=0; j<tiles.length; j++){
-                    this.tile_board[i][j] = tiles[j];
+                for(let j=0; j<taken_tiles.length; j++){
+                    this.tile_board[i][j] = taken_tiles[j];
                 }
+                found = true;
+                break;
+            }
+            if(found)break;
+        }
+        if(!found){
+            this.penaltyCount++;
+            console.log("Penalty");
+        }
+        pile.push(...pile_tiles);
+        // console.log(taken_tiles);
+        // console.log(pile_tiles);
+        // console.log(this.tile_board);
+        factories.splice(rand, 1);
+    }
+    console.log(JSON.parse(JSON.stringify(this.tile_board)));
+}
+
+Player.prototype.processTileBoard = function(){
+    let tiles = [];
+    for(let i=0; i<this.tile_board.length; i++){
+        let trigged=false;
+        for(let j=0; j<this.tile_board[i].length; j++){
+            if(this.tile_board[i][j] == undefined){
+                trigged = true;
+            }
+        }
+        //means the row is full
+        if(!trigged){
+            //NEED TO MAP TO WHAT THEW BOARD LOOKS LIKE
+            let j = findCol(i, this.tile_board[i][0]);
+            this.board[i][j] = 1;
+            for(let j=0; j<this.tile_board[i].length; j++){
+                this.tile_board[i][j] = undefined;
+            }
+            // console.log(i+" - "+this.tile_board[i][0]);
+            // console.log(findCol(i, this.tile_board[i][0]));
+            // this.board[i][j] = 1;
+            // for(let j=0; j<this.tile_board[i].length; j++){
+            //     this.tile_board[i][j] = undefined;
+            // }
+        }
+    }
+    return tiles;
+}
+
+Player.prototype.checkEndCondition = function(){
+    let end = false;
+    for(let i=0; i<this.board.length; i++){
+        let trigger = true;
+        for(let j=0; j<this.board[i].length; j++){
+            if(this.board[i][j] == 0){
+                trigger = false;
                 break;
             }
         }
-        console.log(this.tile_board);
+        if(trigger){
+            end = true;
+            break;
+        }
     }
-
-    factories.splice(rand, 1);
+    return end;
 }
 
 Player.prototype.test = function(pos){

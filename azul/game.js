@@ -1,4 +1,5 @@
 import tileStorage from "./tileStorage.js";
+import {Player} from "./player.js";
 
 class Game{
     constructor(players, tileStorage){
@@ -24,6 +25,18 @@ class Game{
         }
         return this.factories;
     }
+}
+
+Game.prototype.checkStatus = function(turn){
+    let status = "playing";
+    // console.log(this.factories.length+" "+this.pile.length);
+    if(this.factories.length == 0){
+        if(this.pile.length == 0){
+            return "round_over";
+        }
+    }
+    if(turn==20)return "round_over"; //TESTING ONLY
+    return status;
 }
 
 export default Game;
