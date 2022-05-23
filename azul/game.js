@@ -35,7 +35,8 @@ Game.prototype.checkStatus = function(turn){
             return "round_over";
         }
     }
-    if(turn==20)return "round_over"; //TESTING ONLY
+    console.log(turn);
+    if(turn==200)return "game_over"; //TESTING ONLY
     return status;
 }
 

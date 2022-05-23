@@ -46,7 +46,7 @@ while(status != "game_over"){
     await delay();
     if(status != "game_over"){
         game.drawFactories();
-        status = game.checkStatus();
+        status = game.checkStatus(actions);
     }
 }
 // for(let i=0; i<this.players.length; i++){
