@@ -29,14 +29,15 @@ class Game{
 
 Game.prototype.checkStatus = function(turn){
     let status = "playing";
-    // console.log(this.factories.length+" "+this.pile.length);
     if(this.factories.length == 0){
         if(this.pile.length == 0){
+            // test();
+            console.log("game over");
             return "round_over";
         }
     }
-    console.log(turn);
-    if(turn==200)return "game_over"; //TESTING ONLY
+    // console.log(turn);
+    if(turn>=20)return "game_over"; //TESTING ONLY - only to do turn>=20 because sometimes it skips 20 if it is gameover due to the above branch
     return status;
 }
 

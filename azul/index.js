@@ -56,8 +56,18 @@ while(status != "game_over"){
 drawFactoriesAndPile(game);
 
 async function delay() {
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 10000));
   }
+
+//TESTING ONLY
+// function sleep(milliseconds) {
+//     var start = new Date().getTime();
+//     for (var i = 0; i < 1e7; i++) {
+//       if ((new Date().getTime() - start) > milliseconds){
+//         break;
+//       }
+//     }
+//   }
 
 //check conditions
 

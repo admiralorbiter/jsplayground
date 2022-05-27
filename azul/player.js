@@ -67,12 +67,23 @@ Player.prototype.turn = function(factories, pile){
         // console.log(factories[rand]);
         let found = false;
         for(let i=this.tile_board.length-1; i>=0; i--){
-            if(this.tile_board[i][0] == undefined){
-                for(let j=0; j<taken_tiles.length; j++){
-                    this.tile_board[i][j] = taken_tiles[j];
+            if(this.tile_board[i][0] == undefined || this.tile_board[i][0] == rand_color){
+                // console.log("L: "+this.tile_board[i].length);
+                for(let j=0; j<taken_tiles.length; j++){//need to shorten this to only apply to empty spots
+                    //also needs to add it to the end of the row
+                    if(j<this.tile_board[i].length){
+                        this.tile_board[i][j] = taken_tiles[j];
+                    }
                 }
                 found = true;
                 break;
+            }else if(this.tile_board[i][0] == rand_color){//if the first tile is the same color as the one we are trying to add
+                // for(let j=0; j<taken_tiles.length; j++){
+                //     //also needs to add it to the end of the row
+                //     if(j<this.tile_board[i].length){
+                //         this.tile_board[i][j] = taken_tiles[j];
+                //     }
+                // }
             }
             if(found)break;
         }
@@ -86,7 +97,7 @@ Player.prototype.turn = function(factories, pile){
         // console.log(this.tile_board);
         factories.splice(rand, 1);
     }
-    console.log(JSON.parse(JSON.stringify(this.tile_board)));
+    // console.log(JSON.parse(JSON.stringify(this.tile_board)));
 }
 
 Player.prototype.processTileBoard = function(){
