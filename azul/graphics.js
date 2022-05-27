@@ -17,7 +17,12 @@ function drawFactoriesAndPile(game){
     t += tr + "</tr>";
     document.getElementById("factories").innerHTML += t;
 
-    changeTextColor();
+    for(let i=0; i<game.factories.length; i++){
+        changeTextColor(i, 1);
+        changeTextColor(i, 2);
+        changeTextColor(i, 3);
+        changeTextColor(i, 4);
+    }
 }
 
 function drawActor(id, player){
@@ -35,36 +40,18 @@ function drawActor(id, player){
     
 }
 
-// function changeTextColor(id, col){
-//     switch(col){
-//         case 0:
-//             document.getElementById(id).style.color = "red";
-//             break;
-//         case 1:
-//             document.getElementById(id).style.color = "red";
-//             break;
-//         case 2:
-//             document.getElementById(id).style.color = "red";
-//             break;
-//         case 3:
-//             document.getElementById(id).style.color = "red";
-//             break;
-//         case 4:
-//             document.getElementById(id).style.color = "red";
-//             break;
-// }
+function changeTextColor(i, j){
+    let r = "row"+(i);
+    let c = "#col"+(j);
+    // console.log(i, j);
+    let m = document.getElementById(r).querySelector(c);
+    // console.log(getColor(m.innerHTML, m));
+    getColor(m.innerHTML, m);
 
-function changeTextColor(){
-    let offset=0;
-    let value = "row1";
-    if(value=="row1") offset=0;
-    else if(value=="row2") offset=1;
-    else if(value=="row3") offset=2;
-    else if(value=="row4") offset=3;
-    else if(value=="pile") offset=4;
-    
     // col[(i+offset)%5] = getColor(i, document.getElementById(value));
-    console.log(document.getElementById("row1").querySelector("#col1").innerHTML);
+    // let m = document.getElementById("row1").querySelector("#col1");
+    // console.log(document.getElementById("row1").querySelector("#col1").innerHTML);
+    // console.log(getColor(m.innerHTML, m));
 }
 
 function getColor(value, doc){
