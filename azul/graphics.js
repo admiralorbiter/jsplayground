@@ -10,12 +10,18 @@ function drawFactoriesAndPile(game){
         tr += "<td id='col4'>" + game.factories[i][3] + "</td>";
         t += tr + "</tr>";
     }
-    let tr = "<tr><td>Pile</td>";
+    let tr = "<tr id='pile'><td>Pile</td>";
     for(let i=0; i<game.pile.length; i++){
-        tr += "<td>" + game.pile[i] + "</td>";
+        tr += "<td id='p"+i+"'>" + game.pile[i] + "</td>";
+        // getColor(game.pile[i], document.getElementById("p"+(i)));
     }
     t += tr + "</tr>";
     document.getElementById("factories").innerHTML += t;
+
+    for(let i=0; i<game.pile.length; i++){
+        // console.log(document.getElementById("p"+(i)).innerHTML);
+        getColor(game.pile[i], document.getElementById("p"+(i)));
+    }
 
     for(let i=0; i<game.factories.length; i++){
         changeTextColor(i, 1);

@@ -15,6 +15,8 @@ let status = game.checkStatus();
 
 drawFactoriesAndPile(game);
 
+document.body.style.backgroundColor = "gray";
+
 while(status != "game_over"){
     while(status == "playing"){
         document.getElementById("title").innerHTML = "Status: " + status;
