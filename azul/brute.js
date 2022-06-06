@@ -14,6 +14,9 @@ let oppTiles=[];
 let oAction = 0;
 let turn = 0;
 
+// test_length();
+test_score();
+
 function generateTiles(){
     let tiles = [];
     let test=0;
@@ -34,23 +37,49 @@ function generateTiles(){
             // console.log(game.factories);
         }
     }
-    console.log(tiles);
-    console.log(game.factories);
+    // console.log(tiles);
+    // console.log(game.factories);
     return tiles;
 }
 
 function test_length(){
     let biggest = 0;
     let smallest = 100;
-    for(let i=0; i<10000; i++){
+    let sum=0;
+    let count=10000;
+    for(let i=0; i<count; i++){
         let tiles = generateTiles();
         if(tiles.length>biggest)biggest=tiles.length;
         if(tiles.length<smallest)smallest=tiles.length;
+        sum+=tiles.length;
     }
-    console.log(biggest);
-    console.log(smallest);
+    console.log(`Biggest: ${biggest}`);
+    console.log(`Smallest: ${smallest}`);
+    console.log(`Average: ${sum/count}`);
 }
 
+function test_score(){
+    let tiles = generateTiles();
+    //cycle through all combinations of tiles
+    let p = [];
+    for(let hold=0; hold<tiles.length; hold++){
+        for(let shift=0; shift<tiles.length; shift++){
+            p = [];
+            p.push(tiles[hold]);
+            for(let i=0; i<tiles.length/2; i++){
+                p.push(tiles[(hold+i)%tiles.length]);
+            }
+            //send this to a function to calculate score
+            let score = calculateScore(p);
+            console.log(p);
+        }
+    }
+    console.log(tiles);
+}
+
+function calculateScore(tiles){
+    
+}
 // game.pile.shift();
 
 // for(let pileBreak=0; pileBreak<5; pileBreak++){
