@@ -67,18 +67,19 @@ function test_score(){
             p = [];
             p.push(tiles[hold]);
             for(let i=0; i<tiles.length/2; i++){
-                p.push(tiles[(hold+i)%tiles.length]);
+                p.push(tiles[(hold+i+shift)%tiles.length]);
+                // console.log(tiles[(hold+i+shift)%tiles.length], i+hold+shift);
             }
             //send this to a function to calculate score
             let score = calculateScore(p);
-            console.log(p);
+            // console.log(p);
         }
     }
     console.log(tiles);
 }
 
 function calculateScore(tiles){
-    
+    console.log(JSON.stringify(tiles));
 }
 // game.pile.shift();
 
