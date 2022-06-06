@@ -61,6 +61,7 @@ function test_length(){
 function test_score(){
     let tiles = generateTiles();
     //cycle through all combinations of tiles
+    console.log(tiles);
     let p = [];
     for(let hold=0; hold<tiles.length; hold++){
         for(let shift=0; shift<tiles.length; shift++){
@@ -75,11 +76,41 @@ function test_score(){
             // console.log(p);
         }
     }
-    console.log(tiles);
+    // console.log(tiles);
 }
 
 function calculateScore(tiles){
     console.log(JSON.stringify(tiles));
+    sort(tiles);
+
+}
+
+//using a hand a board, cycle through all possible combinations of tiles returning a board each time
+function cycle(hand, board){
+
+}
+
+function sort(hand){
+    console.log(countColors(hand));
+    hand.sort((a, b) => a.length - b.length).reverse();
+    console.log(hand);
+}
+
+function countColors(hand){
+    let h = hand;
+    // let colors = {};
+    let blue, yellow, red, black, white;
+    let colors = [blue, yellow, red, black, white];
+    for(let i=0; i<colors.length; i++){
+        colors[i] = 0;
+    }
+    // console.log(colors);
+    while(h.length!=0){
+        let x = h.pop();
+        let num = x[0];
+        colors[num]+=x.length;
+    }
+    return colors;
 }
 // game.pile.shift();
 
