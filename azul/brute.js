@@ -90,14 +90,45 @@ function cycle(hand, board){
 
 }
 
+//currently sorts then places by length then color count. Need to try color count then length to compare
 function sort(hand){
-    console.log(countColors(hand));
+    // console.log(countColors(hand));
     hand.sort((a, b) => a.length - b.length).reverse();
-    console.log(hand);
+    // console.log(hand);
+    for(let grouping = 4; grouping>0; grouping--){
+        let group = [];
+        let colors = countColors(hand);
+        for(let i=0; i<hand.length; i++){
+            if(hand[i].length == grouping){
+                // console.log(hand[i]);
+                group.push(hand[i]);
+            }
+        }
+        // if(group.length>0)console.log(group);
+        while(colors.length!=0){
+            let largest = 0;
+            for(let i=0; i<colors.length; i++){
+                if(colors[i]>colors[largest])largest=i;
+            }
+            // console.log(largest);
+            for(let i=0; i<group.length; i++){
+                if(group[i][0]==largest)place(group[i]);//place tile
+            }
+            colors.splice(largest, 1);
+
+        }
+    }
+    console.log(countColors(hand));
+    // console.log(hand);
+}
+
+function place(group){
+    console.log(group);
 }
 
 function countColors(hand){
-    let h = hand;
+    let h = [];
+    h.push(...hand)//NEED TO MAKE A COPY
     // let colors = {};
     let blue, yellow, red, black, white;
     let colors = [blue, yellow, red, black, white];
